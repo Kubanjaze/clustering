@@ -40,6 +40,22 @@ Outputs: clustering_results.csv, clustering_plot.png
 | C1 (n=7) | naph |
 | C2–C30 (n=1 each) | 29 singletons across all families |
 
+## Key Concepts
+- k-means clustering on ECFP4 bit vectors (k=5, silhouette score for quality)
+- RDKit Butina clustering on Tanimoto distance matrix (cutoff=0.4)
+- PCA 2D projection for visualization of cluster assignments
+- Cluster purity analysis: comparing chemical clusters to scaffold families
+
+## Verification Checklist
+- [x] k-means silhouette = 0.287 with 5 clusters recovering scaffold families
+- [x] Butina produces 31 clusters (64% singletons, confirming library diversity)
+- [x] clustering_results.csv and clustering_plot.png saved to output/
+- [x] benz and naph form the only cohesive Butina clusters
+
+## Risks
+- k-means on binary fingerprint vectors violates the continuous-feature assumption; Tanimoto-based methods are theoretically more appropriate
+- Silhouette score of 0.287 indicates moderate cluster quality; overlapping scaffold families may share fingerprint subspace
+
 ## Key Insights
 - k-means (sil=0.287) recovers scaffold families cleanly: 5 clusters ≈ 5 non-benz families, with benz dominating C1
 - Butina with cutoff=0.4 over-fragments: 31 clusters for 45 compounds (64% singletons)
